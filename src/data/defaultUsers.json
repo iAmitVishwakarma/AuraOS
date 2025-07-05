@@ -1,0 +1,22 @@
+{
+  "admin": {
+    "password": "admin123",
+    "role": "admin",
+    "config": {
+      "theme": "dark",
+      "accentColor": "#3b82f6",
+      "wallpaper": "/assets/wallpapers/default.jpg",
+      "pinnedApps": ["explorer", "notepad", "calculator", "music", "terminal"]
+    }
+  },
+  "guest": {
+    "password": "guest123",
+    "role": "guest",
+    "config": {
+      "theme": "dark",
+      "accentColor": "#10b981",
+      "wallpaper": "/assets/wallpapers/default2.jpg",
+      "pinnedApps": ["explorer", "notepad"]
+    }
+  }
+}
