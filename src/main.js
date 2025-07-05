@@ -1,16 +1,18 @@
 import AuraKernel from './kernel.js';
-import './services/AuthService.js';
-import './services/VFSService.js';
-import './services/WindowManager.js';
 
-// Initialize the OS
+/**
+ * Main entry point for AuraOS.
+ * Initializes the kernel and sets up global event listeners when the DOM is ready.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   const auraOS = new AuraKernel();
   auraOS.boot();
   
-  // Global keyboard shortcuts
+  // Register global keyboard shortcuts
   document.addEventListener('keydown', (e) => {
+    // Open Spotlight Search with Ctrl + Space
     if (e.ctrlKey && e.key === ' ') {
+      e.preventDefault();
       auraOS.openSpotlight();
     }
   });

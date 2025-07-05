@@ -1,12 +1,20 @@
+/**
+ * Manages user authentication and session persistence.
+ */
 export default class AuthService {
   constructor() {
-    this.users = {
-      admin: { password: 'admin123', role: 'admin' },
-      guest: { password: 'guest123', role: 'guest' }
-    };
+    this.users = {};
+  }
+
+  async loadUsers() {
+      if (Object.keys(this.users).length === 0) {
+          const response = await fetch('/src/data/defaultUsers.json');
+          this.users = await response.json();
+      }
   }
   
-  login(username, password) {
+  async login(username, password) {
+    await this.loadUsers();
     if (this.users[username] && this.users[username].password === password) {
       const session = {
         token: this.generateToken(),
@@ -20,10 +28,14 @@ export default class AuthService {
   }
   
   checkSession() {
-    const session = JSON.parse(sessionStorage.getItem('aura_session'));
+    const sessionData = sessionStorage.getItem('aura_session');
+    if (!sessionData) return null;
+
+    const session = JSON.parse(sessionData);
     if (session && session.expires > Date.now()) {
       return session;
     }
+    sessionStorage.removeItem('aura_session');
     return null;
   }
   
